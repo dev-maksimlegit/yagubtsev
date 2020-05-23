@@ -12,16 +12,13 @@ html, body {
 
 a {
 	text-decoration: none;
-	color: inherit;
 }
 
 button {
-	background-color: transparent;
-}
-
-.wrapper {
-	min-height: 100%;
-	overflow: hidden;
+	cursor: pointer;
+	&:focus {
+		outline: none;
+	}
 }
 
 @mixin flexbox() {
@@ -29,8 +26,14 @@ button {
 	font-size: 0;
 }
 
+.wrapper {
+	min-height: 100%;
+	overflow: hidden;
+}
+
 .page {
 	position: absolute;
+	overflow-x: hidden;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -40,17 +43,23 @@ button {
 }
 
 .container {
-	overflow: hidden;
 	max-width: 1170px;
 	padding: 0 15px;
 	margin: 0 auto;
 }
 
+@media (max-width: 360px) {
+	.container {
+		padding: 0 5px;
+	}
+}
+
+/*----------------------------------*/
 .header {
+	flex: 0 0 auto;
 	position: relative;
-	color: #ffffff;
-	background-color: #121212;
 	padding: 10px 0;
+	background-color: #121212;
 	&__row {
 		@include flexbox();
 		align-items: center;
@@ -63,56 +72,19 @@ button {
 	}
 	&__logo {
 		display: block;
+		width: 195px;
 		img {
-			max-width: 100%;
+			width: 100%;
 		}
 	}
 	&__button {
 		display: inline-block;
-		padding: 8px 17px;
-		border-radius: 8px;
+		padding: 9px 17px;
+		border-radius: 11px;
 		border: 1px solid #ffffff;
-		font-size: 14px;
-		letter-spacing: 0.7px;
-	}
-}
-
-.header-menu {
-	display: flex;
-	padding: 0px 0px 0px 100px;
-	&__list {
-		@include flexbox();
-		margin: 0 -16px;
-		li {
-			padding: 0 16px;
-		}
-	}
-	&__link {
-		position: relative;
 		color: #ffffff;
-		letter-spacing: 0.7px;
 		font-size: 14px;
-		padding: 6px 0;
-		&:before, &:after {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 1px;
-			background-color: #ffffff;
-			opacity: 0;
-			transition: opacity 0.5s;
-		}
-		&:after {
-			top: auto;
-			bottom: 0;
-		}
-		&:hover {
-			&:before, &:after {
-				opacity: 1;
-			}
-		}
+		letter-spacing: 0.7px;
 	}
 	&__burger {
 		display: none;
@@ -124,9 +96,9 @@ button {
 		transform: translateY(-50%);
 		span {
 			display: block;
-			width: 40px;
+			width: 30px;
 			height: 5px;
-			margin-bottom: 4px;
+			margin-bottom: 3px;
 			background-color: #fff;
 			transition: transform 0.5s, opacity 0.25s;
 			&:first-child {
@@ -158,93 +130,130 @@ button {
 				}
 			}
 		}
-		&:focus {
-			outline: none;
+	}
+}
+
+.header-menu {
+	margin: 0px 0px 0px 99px;
+	&__list {
+		@include flexbox();
+		margin: 0 -16px;
+	}
+	&__link {
+		position: relative;
+		display: inline-block;
+		padding: 6px 0;
+		margin: 0 16px;
+		color: #ffffff;
+		font-size: 14px;
+		letter-spacing: 0.7px;
+		&:before, &:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			background-color: #ffffff;
+			opacity: 0;
+			transition: opacity 0.5s;
+		}
+		&:before {
+			top: 0;
+		}
+		&:after {
+			bottom: 0;
+		}
+		&:hover {
+			&:before, &:after {
+				opacity: 1;
+			}
 		}
 	}
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
 	.header-menu {
+		margin: 0;
+		@include flexbox();
 		justify-content: center;
-		padding: 0;
 	}
 }
 
 @media (max-width: 880px) {
 	.header-menu {
 		&__list {
-			margin: 0 -6px;
-			li {
-				padding: 0 6px;
-			}
+			margin: 0 -8px;
+		}
+		&__link {
+			margin: 0 8px;
 		}
 	}
 }
 
 @media (max-width: 767px) {
 	.header {
+		&__burger {
+			display: block;
+			z-index: 20;
+		}
 		&__button {
-			margin: 0px 55px 0px 0px;
-			position: relative;
+			margin: 0px 45px 0px 0px;
 		}
 	}
 	.header-menu {
 		&__list {
-			transition: transform 0.8s;
+			z-index: 10;
+			transition: transform 0.5s;
 			transform: translateY(-100%);
+			overflow: auto;
 			position: fixed;
-			width: 100%;
-			height: 100%;
 			left: 0;
 			top: 0;
+			background-color: black;
+			width: 100%;
+			height: 100%;
 			margin: 0;
-			background-color: #121212;
-			z-index: 10;
 			flex-direction: column;
-			padding: 40px 0 0 0;
 			align-items: center;
-			overflow: auto;
+			padding: 20px 0 0 0;
 			&.active {
 				transform: translateY(0);
 			}
-			li {
-				margin-bottom: 15px;
-			}
 		}
 		&__link {
-			font-size: 20px;
-		}
-		&__burger {
-			display: block;
+			font-size: 18px;
 		}
 	}
 }
 
 @media (max-width: 480px) {
 	.header {
-		&__button {
-			font-size: 12px;
-			padding: 8px 10px;
-		}
 		&__logo {
 			width: 150px;
 		}
+		&__button {
+			padding: 9px 12px;
+			font-size: 12px;
+		}
 	}
 }
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
 	.header {
 		&__logo {
-			width: 120px;
+			width: 140px;
+		}
+		&__burger {
+			right: 5px;
 		}
 		&__button {
-			font-size: 10px;
+			margin: 0px 40px 0px 0px;
 		}
 	}
 }
-
+/*----------------------------------*/
 .first-screen {
+	flex: 0 0 auto;
 	padding: 130px 0;
 	&__container {
 		max-width: 1075px;
@@ -376,8 +385,9 @@ button {
 		}
 	}
 }
-
+/*----------------------------------*/
 .who {
+	flex: 0 0 auto;
 	padding: 85px 0 105px 0;
 	background-color: #121212;
 	&__title-body {
@@ -414,7 +424,6 @@ button {
 	}
 	&__column {
 		flex: 0 0 25%;
-		padding: 0 15px;
 	}
 }
 
@@ -433,6 +442,7 @@ button {
 }
 
 .who-item {
+	margin: 0 15px;
 	text-align: center;
 	border: 3px solid #ffffff;
 	padding: 75px 0;
@@ -564,8 +574,9 @@ button {
 		}
 	}
 }
-
+/*----------------------------------*/
 .cases {
+	flex: 0 0 auto;
 	padding: 100px 0 135px 0;
 	&__title-body {
 		text-align: center;
@@ -580,7 +591,6 @@ button {
 	}
 	&__column {
 		flex: 0 0 50%;
-		padding: 0 15px;
 		margin: 0px 0px 35px 0px;
 		&_s {
 			flex: 0 0 33.333%;
@@ -597,6 +607,7 @@ button {
 }
 
 .cases-item {
+	margin: 0 15px;
 	padding: 75px 0;
 	background-color: #ed1c24;
 	&_s {
@@ -669,10 +680,10 @@ button {
 			margin-bottom: 15px;
 		}
 		&__column {
-			padding: 0 5px;
 		}
 	}
 	.cases-item {
+		margin: 0 5px;
 		padding: 25px 0;
 	}
 }
@@ -692,7 +703,7 @@ button {
 		}
 	}
 }
-
+/*----------------------------------*/
 .footer {
 	padding: 40px 0;
 	background-color: #121212;
@@ -703,3 +714,4 @@ button {
 		text-align: center;
 	}
 }
+/*----------------------------------*/
