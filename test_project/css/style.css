@@ -75,6 +75,7 @@ button:focus {
   width: 100%;
 }
 .header__button {
+  background-color: transparent;
   display: inline-block;
   padding: 9px 17px;
   border-radius: 11px;
@@ -138,6 +139,7 @@ button:focus {
 .header-menu__link {
   position: relative;
   display: inline-block;
+  white-space: nowrap;
   padding: 6px 0;
   margin: 0 16px;
   color: #ffffff;
@@ -274,6 +276,7 @@ button:focus {
   margin: 0px 0px 65px 0px;
 }
 .first-screen__button {
+  white-space: nowrap;
   display: inline-block;
   padding: 12px 98px;
   border-radius: 6px;
